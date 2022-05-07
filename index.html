@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Jogo da velha teste </title>
+        <style>
+            body{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            #player_panel{
+                margin-bottom: 10px;
+                width: 450px;
+                height: 100px;
+                background: orange; 
+            }
+
+            main{
+                margin: auto;
+                background-color: #000;
+                height: 450px;
+                width: 450px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            main .row{
+                background: #000;
+                width: 100%;
+                height: 32.5%;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .row .items{
+                background: white;
+                width: 32.5%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .items_figure{
+
+                background: rgb(245, 160, 111);
+                width: 50%;
+                height: 60%;
+                border-radius: 15px;
+            }
+
+            .items_figure:hover{
+                background: rgb(233, 130, 70);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- <div id="player_panel"> 
+        </div>-->
+        <main>
+            <div class="row">
+                <div class="items">
+                    <div class="items_figure" id="item1"  onclick="acionarButtom('1')"></div>
+                </div>
+                <div class="items">
+                    <div class="items_figure" id="item2"  onclick="acionarButtom('2')"></div>
+                </div>
+                <div class="items">
+                    <div class="items_figure" id="item3"  onclick="acionarButtom('3')"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="items">
+                    <div class="items_figure" id="item4"  onclick="acionarButtom('4')"></div>
+                </div>
+                <div class="items">
+                    <div class="items_figure" id="item5"  onclick="acionarButtom('5')"></div>
+                </div>
+                <div class="items">
+                    <div class="items_figure" id="item6"  onclick="acionarButtom('6')"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="items">
+                    <div class="items_figure" id="item7" onclick="acionarButtom('7')"></div>
+                </div>
+                <div class="items">
+                    <div class="items_figure" id="item8"  onclick="acionarButtom('8')"></div>
+                </div>
+                <div class="items">
+                    <div class="items_figure" id="item9"  onclick="acionarButtom('9')"></div>
+                </div>
+            </div>
+        </main>
+       
+    </body>    
+    <script>
+        //alert("testando")
+        var x_values = [], y_values = [];
+        var player_controller = 'x';
+        var controll = true;
+
+        function inclusaoTree(value, a,b,c){
+            return (value.includes(a) && value.includes(b) && value.includes(c));
+        }
+
+        function verificarGanhador(value){
+            /*1+4+7, 2+5+8, 3+6+9
+1+2+3, 4+5+6, 7+8+9
+1+5+9, 7+5+3*/
+            if(inclusaoTree(value,'1','4','7')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'2','5','8')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'3','6','9')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'1','2','3')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'4','5','6')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'7','8','9')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'1','5','9')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }else if(inclusaoTree(value,'7','5','3')){
+                alert("O vencedor é: "+player_controller+" ");
+                return true;
+            }
+        }
+
+        function acionarButtom(value){
+            if(!controll){
+                for(var i=1; i<=9; i++){
+                    document.getElementById(`item${i}`).style.backgroundColor = 'rgb(245, 160, 111)' ;
+                    //document.getElementById(`item${i}`).disabled = true ;
+                }
+                controll = true;
+                x_values = [], y_values = [];
+            }
+
+            player_controller = player_controller === 'x' ? 'y' : 'x';
+
+            document.getElementById(`item${value}`).style.backgroundColor = player_controller === 'x' ? 'blue': 'green' ;
+
+            if(player_controller === 'x'){
+                x_values.push(value);
+                console.log(x_values);
+            }else{
+                y_values.push(value);
+                console.log(y_values);
+            }
+
+           if(verificarGanhador(player_controller === 'x' ? x_values : y_values)){
+                controll = false;
+                alert("Finalizando Jogo!");
+           }
+
+
+            //alert(`O jogador é o ${player_controller}`);
+        }
+    </script>
+</html>
