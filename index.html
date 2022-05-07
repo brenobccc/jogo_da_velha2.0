@@ -147,6 +147,12 @@
                 x_values = [], y_values = [];
             }
 
+            if(document.getElementById(`item${value}`).style.backgroundColor === 'blue' || 
+            document.getElementById(`item${value}`).style.backgroundColor === 'green'){
+                alert("O valor já foi selecionado! Selecione algum outro campo disponível.");
+                return;
+            }
+                
             player_controller = player_controller === 'x' ? 'y' : 'x';
 
             document.getElementById(`item${value}`).style.backgroundColor = player_controller === 'x' ? 'blue': 'green' ;
